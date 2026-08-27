@@ -1,104 +1,157 @@
-<div align="center">
+# 🎮 Leap Hero
 
-# 🎮 Leap Hero - 2D Platformer
-### Comprehensive Technical Documentation & Architecture Overview
+> A dynamic 2D platformer game built with Unity, featuring physics-based movement, interactive collectibles, particle effects, and temporary player power-ups.
 
-[![Course](https://img.shields.io/badge/Course-CPCS%20494-blue)](https://github.com/)
-[![Engine](https://img.shields.io/badge/Engine-Unity%206-black)](https://unity.com/)
-[![Language](https://img.shields.io/badge/Language-C%23-orange)](https://docs.microsoft.com/en-us/dotnet/csharp/)
-[![University](https://img.shields.io/badge/University-King%20Abdulaziz%20University-green)](https://www.kau.edu.sa/)
-
-</div>
+[![Unity](https://img.shields.io/badge/Engine-Unity-black?logo=unity)](https://unity.com/)
+[![Genre](https://img.shields.io/badge/Genre-2D%20Platformer-blue)]()
+[![Status](https://img.shields.io/badge/Status-Completed-success)]()
 
 ---
 
-## 📖 Table of Contents
-1. [Project Overview](#-1-project-overview)
-2. [Technical Specifications & Engine Setup](#-2-technical-specifications--engine-setup)
-3. [Core Systems & Features Breakdown](#-3-core-systems--features-breakdown)
-   - [Landing Dust Particle System](#31-landing-dust-particle-system)
-   - [Power-Up Gem & Coroutine System](#32-power-up-gem--coroutine-system)
-4. [Source Code Implementation](#-4-source-code-implementation)
-5. [Repository Structure](#-5-repository-structure)
-6. [Project Team & Roles](#-6-project-team--roles)
+## 📸 Gameplay
+
+🎥 **[Watch Gameplay Video](Gameplay.mp4)**
+
+Leap Hero is a 2D platformer focused on responsive player interaction and visual feedback.
+
+The player navigates the level by jumping across platforms, collecting gems, and interacting with gameplay elements. The project also implements custom particle effects to make important player actions more visually engaging.
 
 ---
 
-## 📌 1. Project Overview
-**Leap Hero** is a feature-rich 2D platformer developed as part of the **CPCS 494** curriculum at King Abdulaziz University, under the supervision of **Dr. Emad Albassam**[cite: 1]. The project bridges game physics and visual feedback mechanisms to deliver a responsive, polished player experience. Key highlights include dynamic environmental interactions, state-based particle emission, and asynchronous coroutine-driven power-up buffers.
+## 🕹️ Project Overview
+
+**Leap Hero** is a 2D platformer developed using **Unity**.
+
+The project focuses on combining basic physics-based gameplay with interactive visual effects to create a more immersive player experience.
+
+The player can:
+
+- 🦘 Jump and navigate through the level
+- 🌫️ Trigger a dust effect when landing
+- 💎 Collect gems
+- 🚀 Temporarily increase jump strength
+- 🟢 Enter a visual power-up state
+- ✨ Experience pulsing visual feedback during the power-up
+
+The project demonstrates how gameplay mechanics, physics, collision detection, and particle systems can work together to provide clear visual feedback to the player.
 
 ---
 
-## ⚙️ 2. Technical Specifications & Engine Setup
-* **Game Engine:** Unity 6 (`6000.0.40f1`)[cite: 1]
-* **Scripting Language:** C#[cite: 1]
-* **Physics Components:** Rigidbody2D, BoxColliders, and Ground Check Raycasting/Collision Events[cite: 1]
-* **Target Platform:** Desktop / PC (Standalone)
+## ✨ Key Features
+
+### 🦘 Player Movement
+
+The player uses Unity's 2D physics system to move and jump through the environment.
+
+Key components include:
+
+- `Rigidbody2D`
+- 2D Colliders
+- Jump mechanics
+- Collision-based interaction
 
 ---
 
-## 🧩 3. Core Systems & Features Breakdown
+### 🌫️ Landing Dust Effect
 
-### 3.1 Landing Dust Particle System
-To maximize immersion and give physical weight to movement, a custom particle system fires instantaneously when the player character impacts solid terrain after falling or jumping[cite: 1].
-* **Trigger Mechanism:** Ground-collision detection event via script.
-* **Particle System Configuration Properties:**
-  * **Duration:** `0.3 seconds`[cite: 1]
-  * **Looping:** `Disabled`[cite: 1]
-  * **Start Lifetime:** `0.2 seconds`[cite: 1]
-  * **Start Speed:** `0.5`[cite: 1]
-  * **Start Size:** `0.4`[cite: 1]
-  * **Simulation Space:** `World`[cite: 1]
-  * **Emitter Velocity Mode:** `Rigidbody`[cite: 1]
-  * **Max Particles:** `5`[cite: 1]
+A custom Particle System is triggered whenever the player lands on the ground after jumping.
 
-### 3.2 Power-Up Gem & Coroutine System
-An in-game collectible item (Gem) designed to dynamically alter player states for a limited duration when consumed[cite: 1].
-* **Lifecycle & State Changes:**
-  1. **Collision Detection:** Player enters the Gem's trigger collider.
-  2. **Stat Modification:** Jump force (`jumpForce`) is immediately scaled up to a boosted threshold (`boostedJumpForce`)[cite: 1].
-  3. **Visual Feedback:** Sprite renderer color shifts dynamically to a glowing green hue accompanied by an alpha pulsing loop[cite: 1].
-  4. **Expiration & Reversion:** After exactly **30 seconds**, a background coroutine safely restores original color parameters and baseline jump physics[cite: 1].
+The effect was designed to be:
+
+- Short and responsive
+- Visually subtle
+- Triggered through collision detection
+- Representative of the player's impact with the ground
+
+#### Particle Configuration
+
+| Property | Value |
+|---|---:|
+| Duration | 0.3s |
+| Looping | Disabled |
+| Start Lifetime | 0.2s |
+| Start Speed | 0.5 |
+| Start Size | 0.4 |
+| Max Particles | 5 |
+| Simulation Space | World |
+| Emission | Enabled |
+| Shape | Enabled |
+
+This provides immediate visual feedback whenever the player lands.
 
 ---
 
-## 💻 4. Source Code Implementation
+### 💎 Gem Power-Up System
 
-Below is the core C# Coroutine responsible for managing the dynamic color lerp pulsing effect and temporary jump amplification:
+The project includes an interactive collectible gem that temporarily enhances the player's abilities.
 
-```csharp
-private System.Collections.IEnumerator PulseColorAndBoost(Color targetColor, float pulseDuration, float totalDuration)
-{
-    isPulsing = true;
-    Color originalColor = spriteRenderer.color;
-    float elapsed = 0f;
-    
-    // Apply temporary attribute boost
-    playerMovement.jumpForce = boostedJumpForce;
+When the player collects the gem:
 
-    while (elapsed < totalDuration)
-    {
-        float timer = 0f;
-        // Fade towards target color (Green Pulse)
-        while (timer < pulseDuration)
-        {
-            timer += Time.deltaTime;
-            spriteRenderer.color = Color.Lerp(originalColor, targetColor, timer / pulseDuration);
-            yield return null;
-        }
+1. 🟢 The player's color changes to green.
+2. 🚀 Jump force is increased.
+3. ✨ A pulsing visual effect is activated.
+4. ⏱️ The power-up remains active for **30 seconds**.
+5. 🔄 The player's original state is restored after the duration ends.
 
-        timer = 0f;
-        // Fade back to original color
-        while (timer < pulseDuration)
-        {
-            timer += Time.deltaTime;
-            spriteRenderer.color = Color.Lerp(targetColor, originalColor, timer / pulseDuration);
-            yield return null;
-        }
-        
-        elapsed += pulseDuration * 2;
-    }
+The system uses a **Coroutine** to manage the temporary power-up duration and its visual feedback.
 
-    // Reset status after completion
-    isPulsing = false;
-}
+---
+
+## ⚙️ Technical Implementation
+
+The project combines several Unity systems to create the gameplay experience.
+
+### Physics & Interaction
+
+- `Rigidbody2D`
+- 2D Colliders
+- Collision Detection
+- Player-environment interaction
+
+### Visual Effects
+
+- Unity Particle System
+- Landing dust effect
+- Power-up visual feedback
+- Pulsing color effect
+
+### Gameplay Systems
+
+- Player jumping
+- Collectible objects
+- Temporary ability enhancement
+- Timed power-up state
+- Automatic state restoration
+
+---
+
+## 🧠 What This Project Demonstrates
+
+Leap Hero demonstrates practical experience with:
+
+- 🎮 2D game development
+- ⚙️ Unity physics
+- 💥 Collision-based events
+- ✨ Particle Systems
+- 🔄 Coroutine-based timed mechanics
+- 🎨 Sprite and visual state manipulation
+- 🧩 Gameplay system integration
+- 📁 Organized Unity project structure
+
+Rather than relying only on static gameplay elements, the project focuses on providing **visual feedback for player actions**, helping important interactions feel more responsive and engaging.
+
+---
+
+## 📂 Repository Structure
+
+```text
+Leap-Hero/
+│
+├── Scripts/
+│   └── Game scripts
+│
+├── Gameplay.mp4
+│
+├── Leap Hero Report.pdf
+│
+└── README.md
