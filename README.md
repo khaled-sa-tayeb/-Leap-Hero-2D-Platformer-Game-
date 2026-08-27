@@ -3,6 +3,9 @@
 # 🎮 Leap Hero
 
 ### 2D Platformer Game
+
+<img src="Cover.png" alt="Leap Hero Cover" width="100%">
+
 [![Unity](https://img.shields.io/badge/Engine-Unity-black?logo=unity)](https://unity.com/)
 [![Genre](https://img.shields.io/badge/Genre-2D%20Platformer-blue)]()
 [![Language](https://img.shields.io/badge/Language-C%23-239120?logo=csharp&logoColor=white)]()
@@ -42,6 +45,7 @@
 ```text
 Leap-Hero/
 ├── Scripts/
+├── Cover.png
 ├── Leap Hero (Gameplay).mp4
 ├── Leap Hero Report.pdf
 └── README.md
