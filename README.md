@@ -12,7 +12,7 @@
 
 ---
 
-## 📖 About
+## 💡 About
 
 **Leap Hero** is a 2D platformer developed using Unity. The game combines physics-based movement, collectible power-ups, and particle effects to create a more engaging gameplay experience.
 
@@ -35,13 +35,13 @@
 
 ## 🎥 Gameplay
 
-[Watch the Gameplay Video](Gameplay.mp4)
+[Watch the Gameplay Video](Leap Hero Gameplay.mp4)
 
 ## 📂 Repository
 
 ```text
 Leap-Hero/
 ├── Scripts/
-├── Gameplay.mp4
+├── Leap Hero (Gameplay).mp4
 ├── Leap Hero Report.pdf
 └── README.md
