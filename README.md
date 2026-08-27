@@ -3,7 +3,8 @@
 # 🎮 Leap Hero
 
 ### 2D Platformer Game
-
+[![Unity](https://img.shields.io/badge/Engine-Unity-black?logo=unity)](https://unity.com/)
+[![Genre](https://img.shields.io/badge/Genre-2D%20Platformer-blue)]()
 [![Language](https://img.shields.io/badge/Language-C%23-239120?logo=csharp&logoColor=white)]()
 [![Author](https://img.shields.io/badge/AUTHOR-KHALED%20SALEM%20TAYEB-orange)]()
 
